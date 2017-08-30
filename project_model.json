@@ -1,0 +1,37 @@
+{
+  "global": {
+    "projectName": "wz-react-demo-calculator",
+    "initialVersion": "0.0.1",
+    "projectDescription": "A demonstration of how the React starter app can be used to create a simple React-Redux app.",
+    "homePageTitle": "React-Redux Pocket Calculator",
+    "gitSiteUrl": "https://github.com/webzeppelin/wz-react-demo-calculator",
+    "gitCloneUrl": "https://github.com/webzeppelin/wz-react-demo-calculator.git",
+    "devServerHost": "localhost",
+    "devServerPort": "8080",
+    "author": "Andy Ford",
+    "license": "MIT"
+  },
+  "manifest": [
+    {
+      "out": "package.json",
+      "in": "package.template.json"
+    },
+    {
+      "out": "webpack.config.js",
+      "in": "webpack.config.template.js"
+    },
+    {
+      "out": "public/index.html",
+      "in": "public/index.template.html"
+    },
+    {
+      "out": "src/components/common/Header.js",
+      "in": "src/components/common/Header.template.js"
+    },
+     {
+      "out": "src/components/common/Footer.js",
+      "in": "src/components/common/Footer.template.js"
+    }
+  ]
+  
+}

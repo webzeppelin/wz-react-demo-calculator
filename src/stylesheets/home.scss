@@ -1,0 +1,13 @@
+$song-font-stack: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+
+.song_lyrics {
+  font: 175% $song-font-stack;
+  p {
+    padding-top: 15px;
+  }
+}
+
+.song_byline {
+  font: 225% $song-font-stack;
+  padding-top: 25px;
+}
