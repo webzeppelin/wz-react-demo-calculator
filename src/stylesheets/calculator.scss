@@ -46,6 +46,12 @@ $calc-font-stack: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "
   }
 }
 
+.calc_mode {
+  background-color: silver;
+  margin-top: 10px;
+  text-align: center;
+}
+
 .btn {
   color: white;
   width: 50px;

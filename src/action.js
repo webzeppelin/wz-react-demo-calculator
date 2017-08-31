@@ -44,4 +44,31 @@ export function clearAllKeyPress() {
     };
 }
 
+export const TOGGLE_MODE = "TOGGLE_MODE";
+export function toggleMode() {
+    return {
+        type: TOGGLE_MODE,
+    };
+}
 
+export const FETCH_TIME = "FETCH_TIME";
+export function fetchTime() {
+    return {
+        type: FETCH_TIME,
+    };
+}
+
+export const RECEIVE_TIME = "RECEIVE_TIME";
+export function receiveTime(time) {
+    return {
+        type: RECEIVE_TIME,
+        time: time,
+    };
+}
+
+export const TICK_TOCK = "TICK_TOCK";
+export function tickTock() {
+    return {
+        type: TICK_TOCK,
+    }
+}

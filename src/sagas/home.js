@@ -4,7 +4,7 @@ import { call, put, select } from "redux-saga/effects";
 // import { actionType } from "../action";
 
 // IMPORT NEED API FUNCTIONS
-import HomeApi from "../api/home";
+//import HomeApi from "../api/home";
 
 // DEFINE YOUR SAGA SIDE EFFECT FUNCTIONS
 // export function* doSideEffect(action) {

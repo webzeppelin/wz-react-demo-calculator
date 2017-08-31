@@ -1,6 +1,7 @@
 // IMPORT ACTION TYPES
 import { DIGIT_KEY_PRESS, DECIMAL_KEY_PRESS, OPERATOR_KEY_PRESS,
-  EQUAL_KEY_PRESS, CLEAR_ENTRY_KEY_PRESS, CLEAR_ALL_KEY_PRESS } from "../action"
+  EQUAL_KEY_PRESS, CLEAR_ENTRY_KEY_PRESS, CLEAR_ALL_KEY_PRESS,
+  TOGGLE_MODE, RECEIVE_TIME, TICK_TOCK } from "../action"
 import { OperatorState, CalculatorOps } from "../model";
 
 export const defaultCalculatorState = {
@@ -10,6 +11,9 @@ export const defaultCalculatorState = {
   entryFixed: true,
   decimalPlaces: 0,
   op: null,
+  mode: 0, // this means it starts in calc mode (1 == clock mode)
+  time: null,
+  lastSynced: null,
 }
 
 export function reduceCalculator(state = defaultCalculatorState, action) {
@@ -55,6 +59,24 @@ export function reduceCalculator(state = defaultCalculatorState, action) {
       }
     case CLEAR_ALL_KEY_PRESS:
       return defaultCalculatorState;
+    case TOGGLE_MODE:
+      return {
+        ...state,
+        mode: state.mode ? 0 : 1,
+      }
+    case RECEIVE_TIME:
+      console.log("Received time: "+action.time);
+      return {
+        ...state,
+        time: action.time,
+        lastSynced: action.time,
+      }
+    case TICK_TOCK:
+      if (!state.time) return state;
+      return {
+        ...state,
+        time: new Date(state.time.getTime() + 1000),
+      }
     default:
       return state;
   }
@@ -64,6 +86,7 @@ function evaluateOperation(state, operation, nextOperation) {
   let opInState = new OperatorState(state.mem, state.acc, state.entry);
   let opOutState = operation.func(opInState);
   return {
+    ...state,
     mem: opOutState.mem,
     acc: opOutState.acc,
     entry: opOutState.entry,

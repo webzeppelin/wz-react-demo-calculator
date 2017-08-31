@@ -1,11 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Row, Col, Panel } from "react-bootstrap";
+import { Image } from "react-bootstrap";
 
 import { DispatchButton } from "./DispatchButton";
 import { OperatorButton } from "./OperatorButton";
 import { DigitButton } from "./DigitButton";
-import { clearAllKeyPress, clearEntryKeyPress, decimalKeyPress, equalKeyPress } from "../../action";
+import { clearAllKeyPress, clearEntryKeyPress, decimalKeyPress, equalKeyPress, toggleMode } from "../../action";
 import { CalculatorOps } from "../../model";
 import "../../stylesheets/calculator.scss";
 
@@ -18,7 +18,7 @@ export class PocketCalculator extends React.Component {
   }
 
   render() {
-    const { mem, entry, acc, entryFixed } = this.props;
+    const { mode } = this.props;
     return (
       <div className="calc_container">
         <table className="calc_top">
@@ -74,25 +74,49 @@ export class PocketCalculator extends React.Component {
               </tr>
             </tbody>
           </table>
+          <div className="calc_mode">
+            TIME <Image src={mode ? "/media/toggle-left.png" : "/media/toggle-right.png"}
+              onClick={(e) => { this.props.dispatch(toggleMode());}} /> CALC
+          </div>
         </div>
       </div>
     );
   }
 
   formattedDisplayString() {
-    const { entry, mem } = this.props;
-    let roundedEntry = parseFloat(entry.toFixed(8));
-    let memIndicator = mem == 0 ? "\u00A0" : "M";
-    let sign = roundedEntry < 0 ? "-" : " ";
-    let value = Math.abs(roundedEntry).toString()
-    if (value.indexOf(".") < 0) value += ".";
-    value = value.substring(0,9);
-    // pad to 11 characters
-    let padding = "";
-    for (let i=0;i<11-value.length;i++) {
-      padding += "\u00A0";
+    const { mode } = this.props;
+    if (mode == 0) {
+      // render calculator display
+      const { entry, mem } = this.props;
+      let roundedEntry = parseFloat(entry.toFixed(8));
+      let memIndicator = mem == 0 ? "\u00A0" : "M";
+      let sign = roundedEntry < 0 ? "-" : " ";
+      let value = Math.abs(roundedEntry).toString()
+      if (value.indexOf(".") < 0) value += ".";
+      value = value.substring(0,9);
+      // pad to 11 characters
+      let padding = "";
+      for (let i=0;i<11-value.length;i++) {
+        padding += "\u00A0";
+      }
+      return memIndicator+sign+padding+value;
+    } else {
+      // render clock display
+      const { time } = this.props;
+      if (!time) return "--:--:-- --";
+      let hour = time.getHours();
+      let ampm;
+      if (hour >= 12) {
+        ampm = "PM";
+        hour = hour - 12;
+      } else {
+        ampm = "AM";
+      }
+      if (hour == 0) hour = 12;
+      let minute = time.getMinutes();
+      let second = time.getSeconds();
+      return padIntTo2(hour)+":"+padIntTo2(minute)+":"+padIntTo2(second)+" "+ampm;
     }
-    return memIndicator+sign+padding+value;
   }
 }
 
@@ -102,7 +126,13 @@ function mapStateToProps(state) {
     entry: state.calculator.entry,
     acc: state.calculator.acc,
     entryFixed: state.calculator.entryFixed,
+    mode: state.calculator.mode,
+    time: state.calculator.time,
   };
+}
+
+function padIntTo2(num) {
+  return ("00" + num).slice(-2);
 }
 
 export default PocketCalculator = connect(mapStateToProps)(PocketCalculator);
