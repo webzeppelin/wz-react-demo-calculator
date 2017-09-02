@@ -9,7 +9,7 @@ export class Header extends React.Component {
       <div>
         <Row>
           <Col xs={1}>
-            <Image src="/media/logo.svg" responsive/>
+            <Image src="media/logo.svg" responsive/>
           </Col>
           <Col xs={11}>
             <h1>React-Redux Pocket Calculator</h1>

@@ -9,7 +9,7 @@ export class DigitButton extends React.Component {
   constructor(props) {
     super(props);
     this.audio = new Audio();
-    this.audio.src = "/media/beep.wav";
+    this.audio.src = "media/beep.wav";
   }
 
   render() {
