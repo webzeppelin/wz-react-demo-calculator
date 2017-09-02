@@ -75,7 +75,7 @@ export class PocketCalculator extends React.Component {
             </tbody>
           </table>
           <div className="calc_mode">
-            TIME <Image src={mode ? "/media/toggle-left.png" : "/media/toggle-right.png"}
+            TIME <Image src={mode ? "media/toggle-left.png" : "media/toggle-right.png"}
               onClick={(e) => { this.props.dispatch(toggleMode());}} /> CALC
           </div>
         </div>
