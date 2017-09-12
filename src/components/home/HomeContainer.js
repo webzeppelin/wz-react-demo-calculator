@@ -4,6 +4,7 @@ import { Row, Col, Panel, Image } from "react-bootstrap";
 
 import { PocketCalculator } from "./PocketCalculator";
 import "../../stylesheets/home.scss";
+
 // Home page component
 export class HomeContainer extends React.Component {
 
@@ -45,4 +46,4 @@ export class HomeContainer extends React.Component {
   }
 }
 
-export default connect()(HomeContainer);
+export default HomeContainer = connect()(HomeContainer);

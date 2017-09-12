@@ -1,8 +1,8 @@
 import { takeLatest } from "redux-saga";
 import { race, call, put, fork, take } from "redux-saga/effects";
 
-// IMPORT YOUR ACTION TYPES
-import { FETCH_TIME, TOGGLE_MODE } from "../action"
+// IMPORT YOUR ACTION TYPES AND ACTION CREATORS
+import * as Action from "../action";
 
 // IMPORT YOUR SIDE EFFECTS
 import { fetchTime, monitorToggleMode } from "./calculator";
@@ -11,7 +11,7 @@ import { fetchTime, monitorToggleMode } from "./calculator";
 export function* sagas() {
   yield [
     // REGISTER YOUR SIDE EFFECT SAGAS BELOW
-    fork(takeLatest, FETCH_TIME, fetchTime),
+    fork(takeLatest, Action.FETCH_TIME, fetchTime),
     monitorToggleMode(),
     
   ];

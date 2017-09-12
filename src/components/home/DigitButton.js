@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Button } from "react-bootstrap";
-import { digitKeyPress } from "../../action";
+import * as Action from "../../action";
 
 // Home page component
 export class DigitButton extends React.Component {
@@ -18,7 +18,7 @@ export class DigitButton extends React.Component {
       <Button className={className} onClick={
         (e) => {
           this.audio.play();
-          this.props.dispatch(digitKeyPress(digit));
+          this.props.dispatch(Action.digitKeyPress(digit));
         }
       }>{ label }</Button>
     );

@@ -1,10 +1,8 @@
 // IMPORT ACTION TYPES
-import { DIGIT_KEY_PRESS, DECIMAL_KEY_PRESS, OPERATOR_KEY_PRESS,
-  EQUAL_KEY_PRESS, CLEAR_ENTRY_KEY_PRESS, CLEAR_ALL_KEY_PRESS,
-  TOGGLE_MODE, RECEIVE_TIME, TICK_TOCK } from "../action"
+import * as Action from "../action";
 import { OperatorState, CalculatorOps } from "../model";
 
-export const defaultCalculatorState = {
+export const defaults = {
   mem: 0.0,
   acc: 0.0,
   entry: 0.0,
@@ -16,10 +14,10 @@ export const defaultCalculatorState = {
   lastSynced: null,
 }
 
-export function reduceCalculator(state = defaultCalculatorState, action) {
+export function reduceCalculator(state = defaults, action) {
   switch (action.type) {
     // USE CASE STATEMENTS TO REDUCE ACTIONS
-    case DIGIT_KEY_PRESS:
+    case Action.DIGIT_KEY_PRESS:
       if (getEntryLength(state) > 8) return state;
       let baseEntry = state.entryFixed ? 0.0 : state.entry;
       let signFactor = Math.sign(baseEntry);
@@ -34,7 +32,7 @@ export function reduceCalculator(state = defaultCalculatorState, action) {
         decimalPlaces: nextDecimalPlaces,
         entryFixed: false,
       };
-    case DECIMAL_KEY_PRESS:
+    case Action.DECIMAL_KEY_PRESS:
       if (getEntryLength(state) > 8) return state;
       let entry = state.entryFixed ? 0.0 : state.entry;
       return {
@@ -43,35 +41,35 @@ export function reduceCalculator(state = defaultCalculatorState, action) {
         decimalPlaces: state.decimalPlaces == 0 ? 1 : state.decimalPlaces,
         entryFixed: false,
       };
-    case OPERATOR_KEY_PRESS:
+    case Action.OPERATOR_KEY_PRESS:
       if (action.operation.accumulate) {
         return evaluateOperation(state, state.op ? state.op : CalculatorOps.assign, action.operation);
       } else {
         return evaluateOperation(state, action.operation, state.op);
       }
-    case EQUAL_KEY_PRESS:
+    case Action.EQUAL_KEY_PRESS:
       return evaluateOperation(state, state.op ? state.op : CalculatorOps.assign, null);
-    case CLEAR_ENTRY_KEY_PRESS:
+    case Action.CLEAR_ENTRY_KEY_PRESS:
       return {
         ...state,
-        entry: defaultCalculatorState.entry,
-        decimalPlaces: defaultCalculatorState.decimalPlaces,
+        entry: defaults.entry,
+        decimalPlaces: defaults.decimalPlaces,
       }
-    case CLEAR_ALL_KEY_PRESS:
-      return defaultCalculatorState;
-    case TOGGLE_MODE:
+    case Action.CLEAR_ALL_KEY_PRESS:
+      return defaults;
+    case Action.TOGGLE_MODE:
       return {
         ...state,
         mode: state.mode ? 0 : 1,
       }
-    case RECEIVE_TIME:
+    case Action.RECEIVE_TIME:
       console.log("Received time: "+action.time);
       return {
         ...state,
         time: action.time,
         lastSynced: action.time,
       }
-    case TICK_TOCK:
+    case Action.TICK_TOCK:
       if (!state.time) return state;
       return {
         ...state,

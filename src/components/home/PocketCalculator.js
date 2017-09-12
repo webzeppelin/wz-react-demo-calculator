@@ -5,7 +5,7 @@ import { Image } from "react-bootstrap";
 import { DispatchButton } from "./DispatchButton";
 import { OperatorButton } from "./OperatorButton";
 import { DigitButton } from "./DigitButton";
-import { clearAllKeyPress, clearEntryKeyPress, decimalKeyPress, equalKeyPress, toggleMode } from "../../action";
+import * as Action from "../../action";
 import { CalculatorOps } from "../../model";
 import "../../stylesheets/calculator.scss";
 
@@ -37,8 +37,8 @@ export class PocketCalculator extends React.Component {
           <table>
             <tbody>
               <tr>
-                <td><DispatchButton label="AC" actionCreator={ clearAllKeyPress } className="orange_btn"/></td>
-                <td><DispatchButton label="C" actionCreator={ clearEntryKeyPress } className="grey_btn"/></td>
+                <td><DispatchButton label="AC" actionCreator={ Action.clearAllKeyPress } className="orange_btn"/></td>
+                <td><DispatchButton label="C" actionCreator={ Action.clearEntryKeyPress } className="grey_btn"/></td>
                 <td><OperatorButton label="&radic;" op={ CalculatorOps.sqrt } className="grey_btn"/></td>
                 <td><OperatorButton label="%" op={ CalculatorOps.percent } className="grey_btn"/></td>
               </tr>
@@ -68,15 +68,15 @@ export class PocketCalculator extends React.Component {
               </tr>
               <tr>
                 <td><DigitButton label="0" digit={0}/></td>
-                <td><DispatchButton label="." actionCreator={ decimalKeyPress }/></td>
-                <td><DispatchButton label="=" actionCreator={ equalKeyPress }/></td>
+                <td><DispatchButton label="." actionCreator={ Action.decimalKeyPress }/></td>
+                <td><DispatchButton label="=" actionCreator={ Action.equalKeyPress }/></td>
                 <td><OperatorButton label="+" op={ CalculatorOps.plus }/></td>
               </tr>
             </tbody>
           </table>
           <div className="calc_mode">
             TIME <Image src={mode ? "media/toggle-left.png" : "media/toggle-right.png"}
-              onClick={(e) => { this.props.dispatch(toggleMode());}} /> CALC
+              onClick={(e) => { this.props.dispatch(Action.toggleMode());}} /> CALC
           </div>
         </div>
       </div>

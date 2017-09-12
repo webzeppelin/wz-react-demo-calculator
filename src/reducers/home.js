@@ -1,5 +1,5 @@
 // IMPORT ACTION TYPES
-// import { ACTION_TYPE } from "../../action"
+// import * as Action from "../../action";
 
 export const defaultHomeState = {
   // DEFINE YOUR DEFAULT HOME PAGE STATE
@@ -9,7 +9,7 @@ export const defaultHomeState = {
 export function reduceHome(state = defaultHomeState, action) {
   switch (action.type) {
     // USE CASE STATEMENTS TO REDUCE ACTIONS
-    // case ACTION_TYPE:
+    // case Action.ACTION_TYPE:
     //   return {
     //     ...state,
     //     stateVar: action.arg1,

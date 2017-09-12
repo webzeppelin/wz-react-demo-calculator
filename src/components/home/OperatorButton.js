@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Button } from "react-bootstrap";
-import { operatorKeyPress } from "../../action"
+import * as Action from "../../action";
 
 // Home page component
 export class OperatorButton extends React.Component {
@@ -18,7 +18,7 @@ export class OperatorButton extends React.Component {
       <Button className={className} onClick={
         (e) => {
           this.audio.play();
-          this.props.dispatch(operatorKeyPress(op));
+          this.props.dispatch(Action.operatorKeyPress(op));
         }
       }>{ label }</Button>
     );
